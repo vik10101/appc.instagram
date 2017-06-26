@@ -1,0 +1,46 @@
+{
+  "name": "appc.skeleton.connector",
+  "description": "A skeleton connector, used as a starting point in developing Api Builder service connectors",
+  "version": "1.0.0",
+  "author": "Marin Vasilev",
+  "license": "",
+  "framework": "none",
+  "keywords": [
+    "appcelerator",
+    "arrow"
+  ],
+  "repository": {},
+  "private": true,
+  "dependencies": {
+    "async": "^1.5.0",
+    "cloudelements-cehandler": "^0.5.6",
+    "lodash": "^3.10.1",
+    "pkginfo": "^0.3.1",
+    "semver": "^5.0.3",
+    "superagent": "^3.5.2"
+  },
+  "devDependencies": {
+    "ajv": "^5.1.5",
+    "arrow": "*",
+    "fs": "0.0.1-security",
+    "husky": "^0.13.1",
+    "mockery": "^2.0.0",
+    "nsp": "^2.6.3",
+    "nyc": "^10.1.2",
+    "request": "^2.79.0",
+    "retire": "^1.2.12",
+    "sinon": "^2.3.2",
+    "snazzy": "^6.0.0",
+    "standard": "^8.6.0",
+    "tap": "10.3.0"
+  },
+  "scripts": {
+    "start": "appc run",
+    "check-security": "nsp check || true",
+    "lint": "standard --fix | snazzy",
+    "test": "npm run check-security && npm run test:unit",
+    "test:coverage": "nyc check-coverage --lines 90 --functions 90 --branches 90 --statements 90",
+    "test:unit": "tap ./test/unit/*.unit.js ./test/unit/default/*.unit.js --color --bail --cov --coverage-report=html",
+    "test:integration": "tap ./test/integration/*.js --color --bail --cov --coverage-report=html"
+  }
+}

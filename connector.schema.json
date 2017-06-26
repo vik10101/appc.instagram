@@ -1,0 +1,174 @@
+{
+  "id": "http://axway.com/schemas/connectorschema.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Service Connector Schema",
+  "description": "The schema for a Service Connector definition.",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "configuration": {
+      "description": "Configurations passed to the component.",
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "access": {
+          "description": "Connector access rights on the marketplace",
+          "type": "string",
+          "enum": [
+            "public",
+            "private"
+          ]
+        },
+        "owners": {
+          "description": "Array of email addresses authenticated for the app",
+          "type": "array"
+        },
+        "assets": {
+          "description": "Object that describes Connector assets",
+          "type": "object"
+        }
+      },
+      "required": [
+        "access",
+        "owners"
+      ]
+    },
+    "function": {
+      "description": "Functions exposed by the Connector SDK.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "description": "The node type identifier.",
+          "type": "string"
+        },
+        "deprecated": {
+            "description": "Indicates whether the function is deprecated.",
+            "type" : "boolean"
+        },
+        "parameters": {
+          "description": "Function input data.",
+          "type": "object"
+        },
+        "return": {
+          "$ref": "#/definitions/return"
+        },
+        "security": {
+          "description": "Security protocols enabled for the connector function",
+          "type": "array"
+        },
+        "additionalProperties": {
+          "description": "An array of additional parameters that could be passed to a fucntion. Defaults to undefined",
+          "type": "array"
+        }
+      },
+      "required": [
+        "parameters",
+        "return"
+      ]
+    },
+    "schema": {
+      "description": "A single schema returned by a functions",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "description": "Schema descriptions.",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type identifier.",
+          "type": "string"
+        },
+        "fields": {
+          "description": "Schema fields.",
+          "type": "object",
+          "items": {
+            "$ref": "#/definitions/fieldItem"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "fields"
+      ]
+    },
+    "fieldItem": {
+      "description": "Item that describes a filed from a function response",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "description": "The type identifier.",
+          "type": "string"
+        },
+        "description": {
+          "description": "Schema descriptions.",
+          "type": "string"
+        },
+        "defaultValue": {
+          "description": "Schema fields.",
+          "type": "null"
+        }
+      },
+      "required": [
+        "type",
+        "fields"
+      ]
+    },
+    "return": {
+      "description": "The result returned by a function",
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "properties": {
+    "version": {
+      "description": "The Connector version.",
+      "type": "string",
+      "enum": [
+        "1.0.0"
+      ]
+    },
+    "title": {
+      "description": "The name of the connector",
+      "type": "string"
+    },
+    "description": {
+      "description": "Connector description",
+      "type": "string"
+    },
+    "type": {
+      "description": "Connector Type",
+      "type": "string"
+    },
+    "configuration": {
+      "$ref": "#/definitions/configuration"
+    },
+    "securityDefinitions": {
+      "description": "Security definition.",
+      "type": "object"
+    },
+    "functions": {
+      "description": "A list of functions exported by the SDK",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/function"
+      }
+    },
+    "schemas": {
+      "description": "An object with schema definitions. Those definitions represent the function response.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/schema"
+      }
+    }
+  },
+  "required": [
+    "version",
+    "functions",
+    "schemas",
+    "configuration",
+    "securityDefinitions"
+  ]
+}
